@@ -1,0 +1,45 @@
+/pincodes:
+    type: collection
+    is: [yaasAware]
+    get:
+      description: Gets a pickstore for given pincode
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/wishlist-example.json
+   /{pincode}:
+    type: element
+    is: [yaasAware]
+    uriParameters:
+      pincode:
+        description: the id of the wishlist to work on
+        example: 784hti8ey
+        type: string
+    get:
+      description: Gets a pickstore for given pincode
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/wishlist-example.json
+  /pickupstore/{latitude}/{longitude}:
+    type: element
+    is: [yaasAware]
+    uriParameters:
+      latitude:
+        description: latitude of the place
+        example: 784hti8ey
+        type: string
+      longitude:
+        description: longitude of the place
+        example: 784hti8ey
+        type: string
+    get:
+      description: Gets a pickup stores
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/wishlist-example.json
+   

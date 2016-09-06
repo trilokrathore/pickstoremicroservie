@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: pickupstore
+Implementation-Version: 1.0-SNAPSHOT
+Built-By: i321750
+Implementation-Vendor-Id: com.yaas.pickupstore
+Build-Time: Sat Sep 03 2016 13:09:366 UTC +0000
+Build-Jdk: 1.8.0_102
+Implementation-URL: http://yaas.io/pickupstore
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: SAP SE
+
