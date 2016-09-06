@@ -65,14 +65,7 @@ public class DefaultPickupstoresResource implements com.yaas.pickupstore.api.gen
 //			.build();
 	}
 
-	/* GET /pincodes/{pincodeId} */
-	@Override
-	public Response getPincodesByPincodeId(final YaasAwareParameters yaasAware, final java.lang.String pincodeId)
-	{
-		// place some logic here
-		return Response.ok()
-			.entity(new java.util.ArrayList<Pickupstore>()).build();
-	}
+	
 
 	/* GET /{latitude}/{longitude} */
 	@Override
