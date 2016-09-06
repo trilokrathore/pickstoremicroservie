@@ -18,6 +18,8 @@ import com.yaas.pickupstore.api.generated.YaasAwareParameters;
 
 public final class DefaultPickupstoresResourceTest extends com.yaas.pickupstore.api.generated.AbstractResourceTest
 {
+	private static final String TENANT = "onlinestore";
+
 	/**
 	 * Server side root resource /pickupstores,
 	 * evaluated with some default value(s).
@@ -30,7 +32,7 @@ public final class DefaultPickupstoresResourceTest extends com.yaas.pickupstore.
 	public void before() {
 		this.yaasAware = new YaasAwareParameters();
 		//this.yaasAware.setHybrisClient("");
-		this.yaasAware.setHybrisTenant("onlinestore");
+		this.yaasAware.setHybrisTenant(TENANT);
 
 	}
 
@@ -40,7 +42,7 @@ public final class DefaultPickupstoresResourceTest extends com.yaas.pickupstore.
 	{
 		final WebTarget target = getRootTarget(ROOT_RESOURCE_PATH).path("");
 
-		final Response response = target.request().header(YaasAwareTrait.Headers.TENANT,"onlinestore").get();
+		final Response response = target.request().header(YaasAwareTrait.Headers.TENANT,TENANT).get();
 
 		Assert.assertNotNull("Response must not be null", response);
 		Assert.assertEquals("Response does not have expected response code", Status.OK.getStatusCode(), response.getStatus());
@@ -59,7 +61,7 @@ public final class DefaultPickupstoresResourceTest extends com.yaas.pickupstore.
 		entityBody.setId("Test"+new Date().getTime());
 		entityBody.setTitle("TestTitle"+new Date().getTime());
 
-		final Response response = target.request().header(YaasAwareTrait.Headers.TENANT,"onlinestore").post(entity);
+		final Response response = target.request().header(YaasAwareTrait.Headers.TENANT,TENANT).post(entity);
 
 		Assert.assertNotNull("Response must not be null", response);
 		Assert.assertEquals("Response does not have expected response code", Status.CREATED.getStatusCode(), response.getStatus());
@@ -102,20 +104,24 @@ public final class DefaultPickupstoresResourceTest extends com.yaas.pickupstore.
 //	}
 
 	/* put(entity) /pickupstores/storeId */
-//	@Test
-//	public void testPutByStoreIdWithPickupstore()
-//	{
-//		final WebTarget target = getRootTarget(ROOT_RESOURCE_PATH).path("/storeId");
-//		final Pickupstore entityBody =
-//		new Pickupstore();
-//		final javax.ws.rs.client.Entity<Pickupstore> entity =
-//		javax.ws.rs.client.Entity.entity(entityBody,"application/json");
-//
-//		final Response response = target.request().put(entity);
-//
-//		Assert.assertNotNull("Response must not be null", response);
-//		Assert.assertEquals("Response does not have expected response code", Status.OK.getStatusCode(), response.getStatus());
-//	}
+	@Test
+	public void testPutByStoreIdWithPickupstore()
+	{
+		final WebTarget target = getRootTarget(ROOT_RESOURCE_PATH).path("/").path("Test1473015431553");
+		final Pickupstore entityBody =
+		new Pickupstore();
+		final javax.ws.rs.client.Entity<Pickupstore> entity =
+		javax.ws.rs.client.Entity.entity(entityBody,"application/json");
+		
+		entityBody.setId("Test"+new Date().getTime());
+		entityBody.setTitle("UpdatedTitle"+new Date().getTime());
+
+
+		final Response response = target.request().header(YaasAwareTrait.Headers.TENANT,TENANT).put(entity);
+
+		Assert.assertNotNull("Response must not be null", response);
+		Assert.assertEquals("Response does not have expected response code", Status.OK.getStatusCode(), response.getStatus());
+	}
 
 	/* delete() /pickupstores/storeId */
 //	@Test

@@ -96,6 +96,7 @@ public class DefaultPickupstoresResource implements com.yaas.pickupstore.api.gen
 	@Override
 	public Response putByStoreId(final YaasAwareParameters yaasAware, final java.lang.String storeId, final Pickupstore pickupstore)
 	{
+		pickupStoreServive.updatePickupStore(yaasAware, storeId, pickupstore);
 		// place some logic here
 		return Response.ok()
 			.build();

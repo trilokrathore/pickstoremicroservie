@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.ManagedBean;
 import javax.inject.Inject;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
@@ -89,6 +90,30 @@ public class DocumentClientService {
 			return response.readEntity(ResourceLocation.class).getId();
 		} else if (response.getStatus() == Status.CONFLICT.getStatusCode()) {
 			throw new WebApplicationException("Duplicate ID. Please provide another ID for the wishlist.", response);
+		}
+		throw ErrorHandler.resolveErrorResponse(response, token);
+	}
+	
+	public void updatePickupStore(final YaasAwareParameters yaasAware, final String pickupStoreID, final Pickupstore pickupstore,
+			final AccessToken token) {
+
+		final DocumentPickupstorelist documentWishlist = new DocumentPickupstorelist();
+		documentWishlist.setPickupstore(pickupstore);
+
+		final Response response = documentClient
+				.tenant(yaasAware.getHybrisTenant())
+				.client(client)
+				.dataType(PICKUPSTORE_PATH)
+				.dataId(pickupStoreID)
+				.preparePut()
+				.withAuthorization(token.toAuthorizationHeaderValue())
+				.withPayload(Entity.json(documentWishlist))
+				.execute();
+
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return;
+		} else if (response.getStatus() == Status.NOT_FOUND.getStatusCode()) {
+			throw new NotFoundException("Cannot find pickupStoreID with ID " + pickupStoreID, response);
 		}
 		throw ErrorHandler.resolveErrorResponse(response, token);
 	}

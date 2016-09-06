@@ -59,21 +59,6 @@ resourceTypes:
         application/json:
           example: !include examples/wishlist-example.json
  
-  /pincodes/{pincodeId}:
-    type: collection
-    is: [yaasAware]
-    uriParameters:
-      pincodeId:
-        description: the id of the wishlist to work on
-        example: 784hti8ey
-        type: string
-    get:
-      description: Gets a pickstore for given pincode
-      responses:
-        200:
-          body:
-            application/json:
-              example: !include examples/wishlist-example.json
   /{latitude}/{longitude}:
     type: collection
     is: [yaasAware]

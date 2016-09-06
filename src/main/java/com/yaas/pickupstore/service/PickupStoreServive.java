@@ -12,7 +12,6 @@ import com.sap.cloud.yaas.servicesdk.jerseysupport.pagination.PaginationRequest;
 import com.yaas.pickupstore.api.generated.Pickupstore;
 import com.yaas.pickupstore.api.generated.YaasAwareParameters;
 import com.yaas.pickupstore.customer.CustomerClientService;
-import com.yaas.pickupstore.customer.CustomerClientServiceImpl;
 import com.yaas.pickupstore.document.DocumentClientService;
 import com.yaas.pickupstore.email.EmailClientService;
 import com.yaas.pickupstore.utility.AuthorizationHelper;
@@ -83,6 +82,16 @@ public class PickupStoreServive {
 				});
 
 		return createdId;
+	}
+	
+	public void updatePickupStore(final YaasAwareParameters yaasAware,
+			final String pickupStoreId, final Pickupstore pickupstore) {
+
+		authHelper.wrapWithAuthorization(yaasAware, SCOPE_DOCUMENT_MANAGE,
+				token -> {
+					documentClient.updatePickupStore(yaasAware, pickupStoreId, pickupstore, token);
+					return null;
+				});
 	}
 
 	
