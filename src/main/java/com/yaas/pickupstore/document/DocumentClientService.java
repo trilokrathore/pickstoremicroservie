@@ -48,9 +48,11 @@ public class DocumentClientService {
 				.execute();
 
 		if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-			final List<Pickupstore> pickupstorelist = Arrays.stream(response.readEntity(DocumentPickupstorelist[].class))
+			final List<Pickupstore> pickupstorelist = Arrays.stream(response.readEntity(DocumentPickupstorelist[].class)).filter(document -> null!=document.getPickupstore())
 					.map(document -> transformPickupStoreList(document))
 					.collect(Collectors.toList());
+			
+			//pickupstorelist.removeAll(null);
 
 			return PaginatedCollection.<Pickupstore> of(pickupstorelist)
 					.with(response, paginationRequest)
