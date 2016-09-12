@@ -1,7 +1,6 @@
 package com.yaas.pickupstore.api.generated;
 
 import java.util.Date;
-import java.util.UUID;
 
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
@@ -13,10 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.sap.cloud.yaas.servicesdk.patternsupport.traits.YaasAwareTrait;
-import com.yaas.pickupstore.api.generated.YaasAwareParameters;
 
 
-public final class DefaultPickupstoresResourceTest extends com.yaas.pickupstore.api.generated.AbstractResourceTest
+public final class DefaultPickupstoresResourceTest extends AbstractResourceTest
 {
 	private static final String TENANT = "onlinestore";
 
@@ -58,8 +56,13 @@ public final class DefaultPickupstoresResourceTest extends com.yaas.pickupstore.
 		final javax.ws.rs.client.Entity<Pickupstore> entity =
 		javax.ws.rs.client.Entity.entity(entityBody,"application/json");
 		
-		entityBody.setId("Test"+new Date().getTime());
-		entityBody.setTitle("TestTitle"+new Date().getTime());
+		entityBody.setActive(Boolean.TRUE);
+		entityBody.setId("TEST"+new Date().getTime());
+		entityBody.setName("Shoe STORE");
+		entityBody.setLatitude("12.9716");
+		entityBody.setLongitude("77.5946");
+		entityBody.setOpeningschedule("10 AM");
+		entityBody.setClosingschedule("9 PM");
 
 		final Response response = target.request().header(YaasAwareTrait.Headers.TENANT,TENANT).post(entity);
 
@@ -67,41 +70,6 @@ public final class DefaultPickupstoresResourceTest extends com.yaas.pickupstore.
 		Assert.assertEquals("Response does not have expected response code", Status.CREATED.getStatusCode(), response.getStatus());
 	}
 
-	/* get() /pickupstores/pincodes/pincodeId */
-//	@Test
-//	public void testGetPincodesByPincodeId()
-//	{
-//		final WebTarget target = getRootTarget(ROOT_RESOURCE_PATH).path("/pincodes/pincodeId");
-//
-//		final Response response = target.request().get();
-//
-//		Assert.assertNotNull("Response must not be null", response);
-//		Assert.assertEquals("Response does not have expected response code", Status.OK.getStatusCode(), response.getStatus());
-//	}
-
-	/* get() /pickupstores/latitude/longitude */
-//	@Test
-//	public void testGetByLatitudeByLongitude()
-//	{
-//		final WebTarget target = getRootTarget(ROOT_RESOURCE_PATH).path("/latitude/longitude");
-//
-//		final Response response = target.request().get();
-//
-//		Assert.assertNotNull("Response must not be null", response);
-//		Assert.assertEquals("Response does not have expected response code", Status.OK.getStatusCode(), response.getStatus());
-//	}
-
-	/* get() /pickupstores/storeId */
-//	@Test
-//	public void testGetByStoreId()
-//	{
-//		final WebTarget target = getRootTarget(ROOT_RESOURCE_PATH).path("/storeId");
-//
-//		final Response response = target.request().get();
-//
-//		Assert.assertNotNull("Response must not be null", response);
-//		Assert.assertEquals("Response does not have expected response code", Status.OK.getStatusCode(), response.getStatus());
-//	}
 
 	/* put(entity) /pickupstores/storeId */
 	@Test
@@ -124,16 +92,17 @@ public final class DefaultPickupstoresResourceTest extends com.yaas.pickupstore.
 	}
 
 	/* delete() /pickupstores/storeId */
-//	@Test
-//	public void testDeleteByStoreId()
-//	{
-//		final WebTarget target = getRootTarget(ROOT_RESOURCE_PATH).path("/storeId");
-//
-//		final Response response = target.request().delete();
-//
-//		Assert.assertNotNull("Response must not be null", response);
-//		Assert.assertEquals("Response does not have expected response code", Status.NO_CONTENT.getStatusCode(), response.getStatus());
-//	}
+	@Test
+	public void testDeleteByStoreId()
+	{  
+		//Test1473265592112
+		final WebTarget target = getRootTarget(ROOT_RESOURCE_PATH).path("/").path("id12");
+
+		final Response response = target.request().header(YaasAwareTrait.Headers.TENANT,TENANT).delete();
+
+		Assert.assertNotNull("Response must not be null", response);
+		Assert.assertEquals("Response does not have expected response code", Status.NO_CONTENT.getStatusCode(), response.getStatus());
+	}
 
 	@Override
 	protected ResourceConfig configureApplication()

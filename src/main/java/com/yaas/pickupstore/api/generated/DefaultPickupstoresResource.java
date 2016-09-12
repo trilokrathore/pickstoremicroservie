@@ -95,13 +95,13 @@ public class DefaultPickupstoresResource implements com.yaas.pickupstore.api.gen
 			.build();
 	}
 
-	/* DELETE /{storeId} */
 	@Override
-	public Response deleteByStoreId(final java.lang.String storeId)
-	{
-		// place some logic here
-		return Response.noContent()
-			.build();
+	public Response deleteByStoreId(YaasAwareParameters yaasAware, String storeId) {
+		
+		pickupStoreServive.deletePickupStore(yaasAware, storeId);
+		return Response.noContent().build();
 	}
+
+	 
 
 }

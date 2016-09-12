@@ -58,7 +58,11 @@ resourceTypes:
       body:
         application/json:
           example: !include examples/wishlist-example.json
- 
+    delete:
+      description: Delete a PickupStore
+      responses:
+        200:
+          
   /{latitude}/{longitude}:
     type: collection
     is: [yaasAware]

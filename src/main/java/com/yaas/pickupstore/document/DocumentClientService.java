@@ -3,6 +3,7 @@ package com.yaas.pickupstore.document;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.annotation.ManagedBean;
@@ -13,6 +14,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.sap.cloud.yaas.servicesdk.authorization.AccessToken;
@@ -48,7 +50,9 @@ public class DocumentClientService {
 				.execute();
 
 		if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-			final List<Pickupstore> pickupstorelist = Arrays.stream(response.readEntity(DocumentPickupstorelist[].class)).filter(document -> null!=document.getPickupstore())
+			final List<Pickupstore> pickupstorelist = Arrays.stream(response.readEntity(DocumentPickupstorelist[].class))
+					.filter(document -> null!=document.getPickupstore())
+					.filter(document -> null!=document.getPickupstore().isActive())
 					.map(document -> transformPickupStoreList(document))
 					.collect(Collectors.toList());
 			
@@ -119,6 +123,57 @@ public class DocumentClientService {
 		}
 		throw ErrorHandler.resolveErrorResponse(response, token);
 	}
+	
+	public Optional<DocumentPickupstorelist> readPickupStore(final YaasAwareParameters yaasAware, final String pickupstore, final AccessToken token) {
+   
+
+		final Response response = documentClient.tenant(yaasAware.getHybrisTenant())
+				.client(client)
+				.dataType(PICKUPSTORE_PATH)
+				.dataId(pickupstore)
+				.prepareGet()
+				.withAuthorization(token.toAuthorizationHeaderValue())
+				.execute();
+		DocumentPickupstorelist docPickStore=null;
+		if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+			docPickStore=response.readEntity(DocumentPickupstorelist.class);
+		}
+		
+		Optional<DocumentPickupstorelist> docsList=Optional.of(docPickStore);
+		
+		return docsList;
+		
+		//		final Response response = documentClient
+//				.tenant(yaasAware.getHybrisTenant())
+//				.client(client)
+//				.dataType(PICKUPSTORE_PATH)
+//				.dataId(pickupstore)
+//				.prepareDelete()
+//				.withAuthorization(token.toAuthorizationHeaderValue())
+//				.execute();
+//
+//		if (response.getStatus() == Status.NO_CONTENT.getStatusCode()) {
+//			return;
+//		} else if (response.getStatus() == Status.NOT_FOUND.getStatusCode()) {
+//			throw new NotFoundException("Cannot find wishlist with ID " + pickupstore, response);
+//		}
+//		throw ErrorHandler.resolveErrorResponse(response, token);
+	}
+	
+//	public void deletePickupStore(final YaasAwareParameters yaasAware, final String pickupstore, final AccessToken token) {
+//		//TODO
+//
+//		final Response response = documentClient.tenant(yaasAware.getHybrisTenant()).client(client)
+//				.dataType(PICKUPSTORE_PATH).dataId(pickupstore).prepareDelete()
+//				.withAuthorization(token.toAuthorizationHeaderValue()).execute();
+//
+//		if (response.getStatus() == Status.NO_CONTENT.getStatusCode()) {
+//			return;
+//		} else if (response.getStatus() == Status.NOT_FOUND.getStatusCode()) {
+//			throw new NotFoundException("Cannot find wishlist with ID " + pickupstore, response);
+//		}
+//		throw ErrorHandler.resolveErrorResponse(response, token);
+//	}
 
 	
 }

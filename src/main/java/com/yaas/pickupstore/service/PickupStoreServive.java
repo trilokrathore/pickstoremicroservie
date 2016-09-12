@@ -2,6 +2,8 @@ package com.yaas.pickupstore.service;
 
 
 
+import java.util.Optional;
+
 import javax.annotation.ManagedBean;
 import javax.inject.Inject;
 
@@ -13,6 +15,7 @@ import com.yaas.pickupstore.api.generated.Pickupstore;
 import com.yaas.pickupstore.api.generated.YaasAwareParameters;
 import com.yaas.pickupstore.customer.CustomerClientService;
 import com.yaas.pickupstore.document.DocumentClientService;
+import com.yaas.pickupstore.document.DocumentPickupstorelist;
 import com.yaas.pickupstore.email.EmailClientService;
 import com.yaas.pickupstore.utility.AuthorizationHelper;
 
@@ -92,6 +95,35 @@ public class PickupStoreServive {
 					documentClient.updatePickupStore(yaasAware, pickupStoreId, pickupstore, token);
 					return null;
 				});
+	}
+	
+	public Pickupstore readPickupStore(final YaasAwareParameters yaasAware, final String pickupstore) {
+		Optional<DocumentPickupstorelist> docPickStore=authHelper.wrapWithAuthorization(yaasAware, SCOPE_DOCUMENT_VIEW,
+				token -> {
+					documentClient.readPickupStore(yaasAware, pickupstore, token);
+					return null;
+				});
+		
+		if(docPickStore.isPresent()){
+			return docPickStore.get().getPickupstore();
+		}else{
+			return null;
+		}
+		
+	}
+	
+	public void deletePickupStore(final YaasAwareParameters yaasAware, final String pickupstore) {
+
+		Optional<DocumentPickupstorelist> docPickStore=authHelper.wrapWithAuthorization(yaasAware, SCOPE_DOCUMENT_VIEW,
+				token -> {
+					return documentClient.readPickupStore(yaasAware, pickupstore, token);
+				});
+		
+		if(docPickStore.isPresent() && null!=docPickStore.get().getPickupstore()){
+			Pickupstore store=docPickStore.get().getPickupstore();
+			store.setActive(Boolean.FALSE);
+			updatePickupStore(yaasAware, pickupstore, store);
+		}
 	}
 
 	

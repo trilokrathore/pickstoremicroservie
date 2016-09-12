@@ -8,6 +8,10 @@
     {
       "type":"string"
     },
+    "name":
+    {
+      "type":"string"
+    },
     "latitude":
     {
       "type":"string"
@@ -20,7 +24,7 @@
     {
       "type":"string"
     },
-    "storeemailid":
+    "emailId":
     {
       "type":"string"
     },
@@ -48,13 +52,17 @@
       "type":"string",
       "format":"date-time"
     },
-    "items":
+    "openingschedule":
     {
-      "type":"array",
-      "items":
-      {
-        "type":"string"
-      }
+      "type":"string"
+    },
+    "closingschedule":
+    {
+      "type":"string"
+    },
+    "active":
+    {
+      "type":"boolean"
     }
   },
   "required":["id"]
