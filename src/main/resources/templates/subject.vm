@@ -1,1 +1,1 @@
-PickupStore Registered: $body.title
+PickupStore Registered: $body.id

@@ -219,7 +219,7 @@
                             <goal>generate-client</goal>
                         </goals>
                         <configuration>
-                            <sourceRamlUri>https://devportal.stage.yaas.io/services/customer/v1/api.raml</sourceRamlUri>
+                            <sourceRamlUri>https://devportal.yaas.io/services/customer/v1/api.raml</sourceRamlUri>
                             <basePackage>com.yaas.pickupstore.client.customer</basePackage>
                         </configuration>
                     </execution>
@@ -229,7 +229,7 @@
                             <goal>generate-client</goal>
                         </goals>
                         <configuration>
-                            <sourceRamlUri>https://devportal.stage.yaas.io/services/document/v1/api.raml</sourceRamlUri>
+                            <sourceRamlUri>https://devportal.yaas.io/services/document/v1/api.raml</sourceRamlUri>
                             <basePackage>com.yaas.pickupstore.client.document</basePackage>
                         </configuration>
                     </execution>
@@ -240,7 +240,7 @@
                             <goal>generate-client</goal>
                         </goals>
                         <configuration>
-                            <sourceRamlUri>https://devportal.stage.yaas.io/services/email/v1/api.raml</sourceRamlUri>
+                            <sourceRamlUri>https://devportal.yaas.io/services/email/v1/api.raml</sourceRamlUri>
                             <basePackage>com.yaas.pickupstore.client.email</basePackage>
                         </configuration>
                     </execution>
@@ -250,7 +250,7 @@
                             <goal>generate-client</goal>
                         </goals>
                         <configuration>
-                            <sourceRamlUri>https://devportal.stage.yaas.io/services/media/v1/api.raml</sourceRamlUri>
+                            <sourceRamlUri>https://devportal.yaas.io/services/media/v1/api.raml</sourceRamlUri>
                             <basePackage>com.yaas.pickupstore.client.media</basePackage>
                         </configuration>
                     </execution>
