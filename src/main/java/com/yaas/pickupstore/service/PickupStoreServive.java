@@ -2,6 +2,7 @@ package com.yaas.pickupstore.service;
 
 
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.ManagedBean;
@@ -124,6 +125,11 @@ public class PickupStoreServive {
 			store.setActive(Boolean.FALSE);
 			updatePickupStore(yaasAware, pickupstore, store);
 		}
+	}
+	
+	public List<Pickupstore> getPickupStorebyPincode(final YaasAwareParameters yaasAware, final String pincode) {
+		return authHelper.wrapWithAuthorization(yaasAware, SCOPE_DOCUMENT_VIEW,
+				token -> documentClient.getPickupStoreByPincode(yaasAware,pincode ,token));
 	}
 
 	

@@ -110,19 +110,19 @@ public class EmailClientServiceImpl implements EmailClientService{
 	public void sendMail(YaasAwareParameters yaasAware, Pickupstore pickupstore, String mail, AccessToken token) {
 		final Email eMail = new Email();
 		eMail.setToAddress(mail);
-		eMail.setFromAddress("noreply@" + yaasAware.getHybrisTenant() + ".mail.yaas.io");
+		eMail.setFromAddress("TechEdTeam@" + yaasAware.getHybrisTenant() + ".teched.yaas.io");
 		eMail.setTemplateOwner(client);
 		eMail.setTemplateCode(tempateCode);
 		eMail.setLocale(locale);
 
 		final List<TemplateAttributeValue> templateAttributeValue = new ArrayList<TemplateAttributeValue>();
 		if (pickupstore.getTitle() != null) {
-			templateAttributeValue.add(new TemplateAttributeValue(TITLE, pickupstore.getTitle()));
+			templateAttributeValue.add(new TemplateAttributeValue(TITLE, pickupstore.getId()));
 		}else{
 			
 		}
 		if (pickupstore.getDescription() != null) {
-			templateAttributeValue.add(new TemplateAttributeValue(DESCRIPTION, pickupstore.getDescription()));
+			templateAttributeValue.add(new TemplateAttributeValue(DESCRIPTION, pickupstore.getName()));
 		}
 		eMail.setAttributes(templateAttributeValue);
 

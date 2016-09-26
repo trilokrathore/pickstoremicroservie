@@ -78,6 +78,8 @@ public class DocumentClientService {
 	}
 
 	public String createPickupStore(final YaasAwareParameters yaasAware, final Pickupstore pickupstore, final AccessToken token) {
+		//TODO
+		pickupstore.setActive(Boolean.TRUE);
 		final DocumentPickupstorelist documentWishlist = new DocumentPickupstorelist();
 		documentWishlist.setPickupstore(pickupstore);
 

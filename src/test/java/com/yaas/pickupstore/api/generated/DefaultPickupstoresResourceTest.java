@@ -57,13 +57,13 @@ public final class DefaultPickupstoresResourceTest extends AbstractResourceTest
 		javax.ws.rs.client.Entity.entity(entityBody,"application/json");
 		
 		entityBody.setActive(Boolean.TRUE);
-		entityBody.setId("TEST"+new Date().getTime());
+		entityBody.setId("BL1"+new Date().getTime());
 		entityBody.setName("Shoe STORE");
 		entityBody.setLatitude("12.9716");
 		entityBody.setLongitude("77.5946");
 		entityBody.setOpeningschedule("10 AM");
 		entityBody.setClosingschedule("9 PM");
-
+		entityBody.setPincode("560066");
 		final Response response = target.request().header(YaasAwareTrait.Headers.TENANT,TENANT).post(entity);
 
 		Assert.assertNotNull("Response must not be null", response);

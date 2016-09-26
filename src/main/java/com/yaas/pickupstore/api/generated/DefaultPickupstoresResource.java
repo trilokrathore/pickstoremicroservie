@@ -65,16 +65,6 @@ public class DefaultPickupstoresResource implements com.yaas.pickupstore.api.gen
 //			.build();
 	}
 
-	
-
-	/* GET /{latitude}/{longitude} */
-	@Override
-	public Response getByLatitudeByLongitude(final YaasAwareParameters yaasAware, final java.lang.String latitude, final java.lang.String longitude)
-	{
-		// place some logic here
-		return Response.ok()
-			.entity(new java.util.ArrayList<Pickupstore>()).build();
-	}
 
 	/* GET /{storeId} */
 	@Override
@@ -100,6 +90,12 @@ public class DefaultPickupstoresResource implements com.yaas.pickupstore.api.gen
 		
 		pickupStoreServive.deletePickupStore(yaasAware, storeId);
 		return Response.noContent().build();
+	}
+
+	@Override
+	public Response getPincodeByPincode(YaasAwareParameters yaasAware, String pincode) {
+		return Response.ok()
+				.build();
 	}
 
 	 

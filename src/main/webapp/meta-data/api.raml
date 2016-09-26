@@ -63,15 +63,11 @@ resourceTypes:
       responses:
         200:
           
-  /{latitude}/{longitude}:
+  /pincode/{pincode}:
     type: collection
     is: [yaasAware]
     uriParameters:
-      latitude:
-        description: latitude of the place
-        example: 784hti8ey
-        type: string
-      longitude:
+      pincode:
         description: longitude of the place
         example: 784hti8ey
         type: string
