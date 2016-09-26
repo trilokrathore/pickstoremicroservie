@@ -28,6 +28,11 @@
     {
       "type":"string"
     },
+     "pincode":
+    {
+      "type":"string"
+    }
+    ,
     "url":
     {
       "type":"string",

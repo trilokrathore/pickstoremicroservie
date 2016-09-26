@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.glassfish.jersey.server.ContainerRequest;
@@ -94,7 +93,9 @@ public class DefaultPickupstoresResource implements com.yaas.pickupstore.api.gen
 
 	@Override
 	public Response getPincodeByPincode(YaasAwareParameters yaasAware, String pincode) {
-		return Response.ok()
+		
+		final ResponseBuilder responseBuilder = Response.ok(pickupStoreServive.getPickupStorebyPincode(yaasAware, pincode));
+		return responseBuilder
 				.build();
 	}
 

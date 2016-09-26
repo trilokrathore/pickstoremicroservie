@@ -46,6 +46,7 @@ public class DocumentClientService {
 				.withPageNumber(paginationRequest.getPageNumber())
 				.withPageSize(paginationRequest.getPageSize())
 				.withTotalCount(paginationRequest.isCountingTotal())
+				.withSort("id").withSort("pickupstore.name")
 				.withAuthorization(token.toAuthorizationHeaderValue())
 				.execute();
 
@@ -176,6 +177,34 @@ public class DocumentClientService {
 //		}
 //		throw ErrorHandler.resolveErrorResponse(response, token);
 //	}
+	public List<Pickupstore> getPickupStoreByPincode(final YaasAwareParameters yaasAware, final String pincode, final AccessToken token) {
+		   
+		
+		final Response response = documentClient.tenant(yaasAware.getHybrisTenant())
+				.client(client)
+				.dataType(PICKUPSTORE_PATH)
+				.prepareGet()
+				.withSort("id").withSort("pickupstore.name")
+				.withQ("pickupstore.pincode:"+'"'+pincode+'"')
+				//.withQuery("q","pickupstore.pincode \\:"+pincode)
+				.withAuthorization(token.toAuthorizationHeaderValue())
+				.execute();
+		
+		
+		if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+			final List<Pickupstore> pickupstorelist = Arrays.stream(response.readEntity(DocumentPickupstorelist[].class))
+					.filter(document -> null!=document.getPickupstore())
+					.filter(document -> null!=document.getPickupstore().isActive())
+					.map(document -> transformPickupStoreList(document))
+					.collect(Collectors.toList());
+			
+			//pickupstorelist.removeAll(null);
 
+			return pickupstorelist;
+		} else if (response.getStatus() == Status.NOT_FOUND.getStatusCode()) {
+			return Collections.<Pickupstore> emptyList();
+		}
+		throw ErrorHandler.resolveErrorResponse(response, token);
+	}
 	
 }

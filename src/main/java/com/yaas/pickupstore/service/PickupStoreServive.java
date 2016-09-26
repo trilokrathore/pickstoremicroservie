@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.annotation.ManagedBean;
 import javax.inject.Inject;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sap.cloud.yaas.servicesdk.jerseysupport.pagination.PaginatedCollection;
@@ -53,8 +54,12 @@ public class PickupStoreServive {
 //				token -> customerClient.getCustomer(yaasAware, pickupstore.getOwner(), token));
 		
 		
-		final String email="trilok.rathore@sap.com";
+		String email="trilok.rathore@sap.com";
+		if(StringUtils.isNotBlank(pickupstore.getEmailId())){
+			email=pickupstore.getEmailId();
+		}
 		
+		final String finalEmailId=email;
 		System.out.println("Customer Email ID"+ email);
 
 		final String createdId = authHelper.wrapWithAuthorization(yaasAware, SCOPE_DOCUMENT_MANAGE,
@@ -81,7 +86,7 @@ public class PickupStoreServive {
 
 		authHelper.wrapWithAuthorization(yaasAware, SCOPE_EMAIL_SEND,
 				token -> {
-					emailClientService.sendMail(yaasAware, pickupstore, email, token);
+					emailClientService.sendMail(yaasAware, pickupstore, finalEmailId, token);
 					return null;
 				});
 

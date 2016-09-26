@@ -103,6 +103,18 @@ public final class DefaultPickupstoresResourceTest extends AbstractResourceTest
 		Assert.assertNotNull("Response must not be null", response);
 		Assert.assertEquals("Response does not have expected response code", Status.NO_CONTENT.getStatusCode(), response.getStatus());
 	}
+	
+	@Test
+	public void testGetPickupStoresByPincode()
+	{  
+		//Test1473265592112
+		final WebTarget target = getRootTarget(ROOT_RESOURCE_PATH).path("/").path("pincode").path("560065");
+
+		final Response response = target.request().header(YaasAwareTrait.Headers.TENANT,TENANT).get();
+
+		Assert.assertNotNull("Response must not be null", response);
+		Assert.assertEquals("Response does not have expected response code", Status.OK.getStatusCode(), response.getStatus());
+	}
 
 	@Override
 	protected ResourceConfig configureApplication()
